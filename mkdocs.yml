@@ -95,6 +95,11 @@ markdown_extensions:
 nav:
   - Home:
     - index.md
+  - SV:
+    - sv/index.md
+    - Interface:
+      - sv/interfaces/interfaces.md
+      - sv/interfaces/clocking-blocks.md
   - UVM:
     - uvm/index.md
     - Guidelines:
