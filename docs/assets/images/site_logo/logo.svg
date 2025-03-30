@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   height="800"
+   width="800"
+   version="1.1"
+   id="Layer_1"
+   viewBox="0 0 512 512"
+   xml:space="preserve"
+   sodipodi:docname="fire.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs3" /><sodipodi:namedview
+   id="namedview3"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1" />
+<path
+   style="fill:#ffb446"
+   d="M 97.103,353.103 C 97.103,440.86 168.244,512 256,512 v 0 c 87.756,0 158.897,-71.14 158.897,-158.897 0,-88.276 -44.138,-158.897 -14.524,-220.69 0,0 -47.27,8.828 -73.752,79.448 0,0 -88.276,-88.276 -51.394,-211.862 0,0 -89.847,35.31 -80.451,150.069 8.058,98.406 -9.396,114.759 -9.396,114.759 0,-79.448 -62.115,-114.759 -62.115,-114.759 17.976,97.104 -26.162,123.587 -26.162,203.035 z"
+   id="path1" />
+<path
+   style="fill:#ffdc64"
+   d="m 370.696,390.734 c 0,66.093 -51.033,122.516 -117.114,121.241 -62.188,-1.198 -108.457,-48.514 -103.512,-110.321 2.207,-27.586 23.172,-72.276 57.379,-117.517 l 22.805,13.793 C 229.517,242.023 256,167.724 256,167.724 c 17.396,78.283 114.696,98.574 114.696,223.01 z"
+   id="path2" />
+<path
+   style="fill:#ffffff"
+   d="m 211.862,335.448 c -8.828,52.966 -26.483,72.249 -26.483,105.931 0,35.311 31.619,70.621 70.621,70.621 v 0 c 39.284,0 70.729,-32.097 70.62,-71.381 -0.295,-105.508 -61.792,-158.136 -61.792,-158.136 8.828,52.966 -17.655,79.448 -17.655,79.448 -11.032,-16.546 -35.311,-26.483 -35.311,-26.483 z"
+   id="path3" />
+</svg>

@@ -1,0 +1,128 @@
+# Project information
+site_name: SV-MX
+site_author: Ciro Bermudez and Luis Namigtle
+site_description: UVM documentation
+
+# Copyright
+copyright: >-
+  Copyright &copy; 2024 SystemVerilogMX
+
+# Configuration
+theme:
+  name: material
+  language: en
+  palette:
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+  features:
+    - navigation.indexes
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    # - navigation.expand
+    - navigation.sections
+    - header.autohide
+    - content.code.copy
+  font:
+    text: Inter
+    code: Monaco
+  favicon: assets/images/site_logo/favicon.svg
+  logo: assets/images/site_logo/logo.svg
+
+# Plugins
+plugins:
+  - search
+  - glightbox
+  - mkdocs-pdf
+
+# Additional configuration
+extra:
+  generator: false
+  social:
+#  - icon: fontawesome/brands/gitlab
+#    link: https://
+
+# Custom stylesheets
+extra_css:
+  - stylesheets/extra.css
+
+# Custom javascript
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+# Extensions
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# Page tree
+nav:
+  - Home:
+    - index.md
+  - UVM:
+    - uvm/index.md
+    - Guidelines:
+      - uvm/guidelines/resource-guide.md
+      - uvm/guidelines/coding-guidelines.md
+    - Templates:
+      - uvm/templates/sequence-item.md
+      - uvm/templates/sequencer.md
+      - uvm/templates/driver.md
+      - uvm/templates/monitor.md
+      - uvm/templates/agent.md
+      - uvm/templates/agent-config.md
+      - uvm/templates/env.md
+      - uvm/templates/env-config.md
+      - uvm/templates/test.md
+      - uvm/templates/sequence.md
+      - uvm/templates/scoreboard.md
+      - uvm/templates/coverage.md
+      - uvm/templates/interface.md
+    - Register Abstraction Layer:
+      - uvm/ral/ral.md
+      - uvm/ral/register-model.md
+      - uvm/ral/adapter.md
+  - IP blocks:
+    - ip-blocks/index.md
+  - Tools Guides:
+    - tools-guides/index.md
+    - Xilinx Vivado:
+      - tools-guides/vivado/vivado.md
+  - Contacts:
+    - contacts/index.md
