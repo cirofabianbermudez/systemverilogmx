@@ -98,6 +98,9 @@ nav:
   - SV:
     - sv/index.md
     - Interface:
+      - sv/Introduction.md
+      - sv/interfaces/Data-Types.md
+      - sv/interfaces/SystemVerilog-Threads.md
       - sv/interfaces/interfaces.md
       - sv/interfaces/clocking-blocks.md
   - UVM:

@@ -2,7 +2,7 @@
 draft: false
 date: 2025-01-05
 description: >
-  Interfaces
+  Data-Types
 authors: Ciro Bermudez
 icon: material/steering
 hide: 
@@ -10,11 +10,11 @@ hide:
 #  - toc
 ---
 
-# :material-steering: Interfaces
+# :material-steering: Data-Types
 
 ## Summary
 
-The **Interfaces** is
+The **Data-Types** is
 
 ## Coding Guidelines
 
