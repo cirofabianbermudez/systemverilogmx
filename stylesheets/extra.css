@@ -1,0 +1,37 @@
+/* Fix Scrollbar problem */
+body {
+  width: 100vw;
+}
+
+/* Justify text wrapper */
+.justify p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Style for all rows in the highlight table */
+.highlighttable tbody > tr {
+    font-size: 0.8em;
+}
+
+/* Minimum width for the first cell of all rows in specific content tables */
+.md-typeset__scrollwrap table td:first-child {
+    min-width: 16em;
+}
+
+/* Justify text in the second cell of all rows in the table */
+.md-typeset table td:last-child {
+    text-align: justify !important;
+}
+
+/* Bigger font-size in tables */
+.md-typeset__table table code {
+    font-size: 0.9em;
+}
+
+/* Justify text inside admotion*/
+.md-typeset .admonition ul li {
+  text-align: justify;
+}
+
+/* .md-typeset__table > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(1) > code:nth-child(1) */
