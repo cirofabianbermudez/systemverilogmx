@@ -113,7 +113,29 @@ Note that this build method is not called by the UVM build phase, since the regi
 The following code example shows how a register model is put together.
 
 ```verilog
-TODO
+// Reg - tdc_reg
+class tdc_reg extends uvm_reg;
+    `uvm_object_utils(tdc_reg)
+    rand uvm_reg_field ctrl1;
+    rand uvm_reg_field adj1;
+    rand uvm_reg_field pixon;
+    rand uvm_reg_field feon;
+
+    function new(string name = "tdc_reg");
+        super.new(name, 8, UVM_NO_COVERAGE);
+    endfunction : new
+
+    virtual function void build();
+        this.ctrl1 = uvm_reg_field::type_id::create("ctrl1");
+        this.ctrl1.configure(this, 4, 0, "RW", 0, 'hf, 1, 1, 0);
+        this.adj1 = uvm_reg_field::type_id::create("adj1");
+        this.adj1.configure(this, 2, 4, "RW", 0, 'h1, 1, 1, 0);
+        this.pixon = uvm_reg_field::type_id::create("pixon");
+        this.pixon.configure(this, 1, 6, "RW", 0, 'h0, 1, 1, 0);
+        this.feon = uvm_reg_field::type_id::create("feon");
+        this.feon.configure(this, 1, 7, "RW", 0, 'h0, 1, 1, 0);
+    endfunction : build
+endclass : tdc_reg
 ```
 
 When a register is added to a block it is created, causing its fields to be created and configured,
@@ -180,7 +202,7 @@ The prototypes for these methods are very similar:
 
 ```verilog
 //
-// uvm_map add_reg method prototype:
+// uvm_reg_map add_reg method prototype:
 //
 function void add_reg (
   uvm_reg           rg,             // Register object handle
@@ -194,7 +216,7 @@ function void add_reg (
 
 ```verilog
 //
-// uvm_map add_mem method prototype:
+// uvm_reg_map add_mem method prototype:
 //
 function void add_mem (
   uvm_mem        mem,               // Memory object handle
@@ -238,6 +260,157 @@ function uvm_reg_map create_map(
 AHB_map = create_map("AHB_map", 'h0, 4, UVM_LITTLE_ENDIAN);
 ```
 
+_Endianness_ refers to the order in which bytes of a multi-byte data value (such as a 32-bit or 64-bit number) are stored in memory.
+There are two primary forms:
+
+- **Little Endian**:
+
+    In little endian systems, the least significant byte (the “smallest” part of the number) is stored at the lowest memory address
+    (i.e., first in the sequence). For example, the hexadecimal number `0x12345678` would be stored in memory as:  `78 56 34 12`.
+
+- **Big Endian**:
+
+    In big endian systems, the most significant byte is stored at the lowest memory address (i.e., first in the sequence).
+    In the same example, `0x12345678` would be stored as: `12 34 56 78`.
+
+Endianness is critical when interfacing between systems (or hardware components) that might use different byte orders.
+A misinterpretation of byte order may lead to incorrect data values being read or written, which is particularly relevant
+in register mapping and hardware interfacing.
+
+The `n_bytes` parameter is the word size (bus width) of the bus to which the map is associated. If a register's width exceeds
+the bus width, more than one bus access is needed to read and write that register over that bus. The `byte_addressing` argument
+affects how the address is incremented in these consecutive accesses.
+
+For example, if `n_bytes=4` and `byte_addressing=0`, then an access to a register that is 64-bits wide and at offset 0 will
+result in two bus accesses at addresses 0 and 1. With `byte_addressing=1`, that same access will result in two bus accesses
+at addresses 0 and 4.
+
+The first map to be created within a register block is assigned to the `default_map` member of the register block.
+
+The following code example, this declares the register class handles for each of the registers, then the `build()` method
+constructs and configures each of the registers before adding them to a map at the appropriate offset address:
+
+```verilog
+// Addrmap - design_reg_block
+class design_reg_block extends uvm_reg_block;
+    `uvm_object_utils(design_reg_block)
+    rand tdc_reg SET_TDC_DCO1_00;
+    rand tdc_reg SET_TDC_DCO1_01;
+    rand tdc_reg SET_TDC_DCO1_02;
+    rand tdc_reg SET_TDC_DCO1_03;
+
+    function new(string name = "design_reg_block");
+        super.new(name);
+    endfunction : new
+
+    virtual function void build();
+
+        this.SET_TDC_DCO1_00 = tdc_reg::type_id::create("SET_TDC_DCO1_00");
+        this.SET_TDC_DCO1_00.configure(this);
+        this.SET_TDC_DCO1_00.build();
+
+        this.SET_TDC_DCO1_01 = tdc_reg::type_id::create("SET_TDC_DCO1_01");
+        this.SET_TDC_DCO1_01.configure(this);
+        this.SET_TDC_DCO1_01.build();
+
+        this.SET_TDC_DCO1_02 = tdc_reg::type_id::create("SET_TDC_DCO1_02");
+        this.SET_TDC_DCO1_02.configure(this);
+        this.SET_TDC_DCO1_02.build();
+
+        this.SET_TDC_DCO1_03 = tdc_reg::type_id::create("SET_TDC_DCO1_03");
+        this.SET_TDC_DCO1_03.configure(this);
+        this.SET_TDC_DCO1_03.build();
+
+        this.SET_TDC_DCO1_04 = tdc_reg::type_id::create("SET_TDC_DCO1_04");
+        this.SET_TDC_DCO1_04.configure(this);
+        this.SET_TDC_DCO1_04.build();
+
+        // Map name, Offset, Number of bytes, Endianess
+        this.default_map = create_map("reg_map", 0, 1, UVM_NO_ENDIAN);
+
+        this.default_map.add_reg(this.SET_TDC_DCO1_00, 'h0);
+        this.default_map.add_reg(this.SET_TDC_DCO1_01, 'h1);
+        this.default_map.add_reg(this.SET_TDC_DCO1_02, 'h2);
+        this.default_map.add_reg(this.SET_TDC_DCO1_03, 'h3);
+        this.default_map.add_reg(this.SET_TDC_DCO1_04, 'h4);
+
+    endfunction : build
+endclass : mattonella_reg_block
+
+```
+
+## Hierarchical Register Blocks
+
+The cluster block incorporates each sub-block and adds them to a new cluster level address map.
+This process can be repeated and a full SoC register map might contain several nested layers of register blocks.
+
+The procedure is similar to that used for a standard register block. However, in this case, you utilize a class member of type `uvm_reg_block` instead of `uvm_reg`,
+and instead of using `add_reg()` you call `add_submap()`.
+
+```verilog
+//
+// uvm_reg_map add_submap method prototype:
+//
+function void add_submap (
+  uvm_reg_map    child_map, // Name of the child map
+  uvm_reg_addr_t offset     // Offset in father reg_block
+);
+```
+
+This is an example:
+
+```verilog
+package pss_reg_pkg;
+ 
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+   
+  import spi_reg_pkg::*;
+  import gpio_reg_pkg::*;
+   
+  class pss_reg_block extends uvm_reg_block;
+   
+  `uvm_object_utils(pss_reg_block)
+
+  rand spi_reg_block spi;
+  rand gpio_reg_block gpio;
+   
+  function new(string name = "pss_reg_block");
+    super.new(name);
+  endfunction
+   
+  function void build();
+   
+    spi = spi_reg_block::type_id::create("spi");
+    spi.configure(this);
+    spi.build();
+   
+    gpio = gpio_reg_block::type_id::create("gpio");
+    gpio.configure(this);
+    gpio.build();
+
+    AHB_map = create_map("AHB_map", 0, 4, UVM_LITTLE_ENDIAN);
+    default_map = AHB_map;
+    AHB_map.add_submap(this.spi.default_map, 0);
+    AHB_map.add_submap(this.gpio.default_map, 32'h100);
+   
+    lock_model();
+  endfunction: build
+   
+  endclass: pss_reg_block
+ 
+endpackage: pss_reg_pkg
+```
+
+## Functions
+
+This are some functions you need to know:
+
+```verilog
+regmodel.lock_model();
+regmodel.default_map.set_auto_predict(0);
+```
+
 ## Reference Material
 
 **Accellera**
@@ -245,6 +418,7 @@ AHB_map = create_map("AHB_map", 'h0, 4, UVM_LITTLE_ENDIAN);
 - [UVM 1.2 User Guide](https://www.accellera.org/images//downloads/standards/uvm/uvm_users_guide_1.2.pdf)
 - [UVM 1.2 Class Reference `uvm_sequence_item`](https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.2/html/files/seq/uvm_sequence_item-svh.html)
 - [UVM 1.2 Class Reference Index](https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.2/html/index.html)
+- [UVM 1.2 Global Declarations for the Register Layer](https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.2/html/files/reg/uvm_reg_model-svh.html)
 
 **Verification Methodology Cookbooks**
 
@@ -254,3 +428,12 @@ AHB_map = create_map("AHB_map", 'h0, 4, UVM_LITTLE_ENDIAN);
 **Source Code**
 
 - [Source code `uvm_reg_field.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg_field.svh)
+- [Source code `uvm_reg.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg.svh)
+- [Source code `uvm_reg_block.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg_block.svh)
+- [Source code `uvm_mem.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_mem.svh)
+- [Source code `uvm_reg_map.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg_map.svh)
+
+
+
+- [Source code `uvm_reg_adapter.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg_adapter.svh)
+- [Source code `uvm_reg_predictor.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg_predictor.svh)
