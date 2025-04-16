@@ -178,17 +178,79 @@ is set up when integrating the register model into an UVM testbench.
 In order to add a register or a memory to a map, the `add_reg()` or `add_mem()` methods are used.
 The prototypes for these methods are very similar:
 
+```verilog
+//
+// uvm_map add_reg method prototype:
+//
+function void add_reg (
+  uvm_reg           rg,             // Register object handle
+  uvm_reg_addr_t    offset,         // Register address offset
+  string            rights = "RW",  // Register access policy
+  bit               unmapped=0,     // If true, register does not appear in the address
+                                    // map and a frontdoor access needs to be defined
+  uvm_reg_frontdoor frontdoor=null  // Handle to register frontdoor access object
+);
+```
+
+```verilog
+//
+// uvm_map add_mem method prototype:
+//
+function void add_mem (
+  uvm_mem        mem,               // Memory object handle
+  uvm_reg_addr_t offset,            // Memory address offset
+  string         rights = "RW",     // Memory access policy
+  bit            unmapped=0,        // If true, memory is not in the address map
+                                    // and a frontdoor access needs to be defined
+  uvm_reg_frontdoor frontdoor=null  // Handle to memory frontdoor access object
+);
+```
+
+There can be several register maps within a block, each one can specify a different address map and a different target bus agent.
+
+## Register Blocks
+
+The next level of hierarchy in the UVM register structure is the `uvm_reg_block`.
+This class can be used as a container for registers and memories at the block level,
+representing the registers at the hardware functional block level, or as a container
+for multiple blocks representing the registers in a hardware sub-system or a
+complete SoC organized as blocks.
+
+In order to define register and memory address offsets the block contains an
+address map object derived from `uvm_reg_map`. A register map has to be created
+within the register block using the create_map method:
+
+```verilog
+//
+// Prototype for the create_map method
+//
+function uvm_reg_map create_map(
+  string name,               // Name of the map handle
+  uvm_reg_addr_t base_addr,  // The maps base address
+  int unsigned n_bytes,      // Map access width in bytes
+  uvm_endianness_e endian,   // The endianess of the map
+  bit byte_addressing=1      // Whether byte_addressing is supported
+);                         
+ 
+//
+// Example:
+//
+AHB_map = create_map("AHB_map", 'h0, 4, UVM_LITTLE_ENDIAN);
+```
+
 ## Reference Material
 
 **Accellera**
 
+- [UVM 1.2 User Guide](https://www.accellera.org/images//downloads/standards/uvm/uvm_users_guide_1.2.pdf)
 - [UVM 1.2 Class Reference `uvm_sequence_item`](https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.2/html/files/seq/uvm_sequence_item-svh.html)
 - [UVM 1.2 Class Reference Index](https://verificationacademy.com/verification-methodology-reference/uvm/docs_1.2/html/index.html)
 
 **Verification Methodology Cookbooks**
 
 - [UVM Cookbook pdf](https://verificationacademy.com/resource/128026c9-49b3-3eb8-92a4-08373425cd36)
+- [Register Model and Structure](https://verificationacademy.com/cookbook/uvm-universal-verification-methodology/register-model-and-structure/)
 
 **Source Code**
 
-- [Source code `uvm_sequence_item.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/seq/uvm_sequence_item.svh)
+- [Source code `uvm_reg_field.svh`](https://github.com/edaplayground/eda-playground/blob/master/docs/_static/uvm-1.2/src/reg/uvm_reg_field.svh)
