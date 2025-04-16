@@ -16,7 +16,7 @@ body {
 
 /* Minimum width for the first cell of all rows in specific content tables */
 .md-typeset__scrollwrap table td:first-child {
-    min-width: 16em;
+    /* min-width: 12em; */
 }
 
 /* Justify text in the second cell of all rows in the table */
@@ -33,5 +33,3 @@ body {
 .md-typeset .admonition ul li {
   text-align: justify;
 }
-
-/* .md-typeset__table > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(1) > code:nth-child(1) */

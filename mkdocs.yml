@@ -127,8 +127,8 @@ nav:
       - uvm/templates/scoreboard.md
       - uvm/templates/coverage.md
       - uvm/templates/interface.md
-    - Register Abstraction Layer:
-      - uvm/ral/ral.md
+    - Register Layer:
+      - uvm/ral/register-layer.md
       - uvm/ral/register-model.md
       - uvm/ral/adapter.md
   - IP blocks:
