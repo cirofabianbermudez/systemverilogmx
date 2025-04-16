@@ -12,4 +12,6 @@ hide:
 
 # :fontawesome-solid-user-pen: Direct contacts
 
-[Ciro Fabian Bermudez Marquez](mailto:cirofabian.bermudezmarquez@ba.infn.it) - Verification Engineer
+[Ciro Fabian Bermudez Marquez](mailto:cirofabian.bermudez@gmail.com) - Verification Engineer
+
+[Luis Enrique Namigtle Jimenez](mailto:namigtle066@gmail.com) - Verification Engineer

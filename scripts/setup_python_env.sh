@@ -75,7 +75,8 @@ else
 	pip install --upgrade pip
 fi
 set -e
-pip install mkdocs-material mkdocs-glightbox mkdocs-pdf
+pip install mkdocs-material 
+#pip install mkdocs-glightbox mkdocs-pdf
 
 echo -e ""
 echo -e "[INFO]: To activate environment run:"

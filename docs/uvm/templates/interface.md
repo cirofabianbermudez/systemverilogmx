@@ -47,4 +47,4 @@ interface construct also facilitates design reuse.
 
 **IEEE**
 
-[SystemVerilog LRM - 3.5 Interfaces](pdfs/1800-2023.pdf#page=53)
+[SystemVerilog LRM - 3.5 Interfaces]()

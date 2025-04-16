@@ -1,11 +1,17 @@
 # Project information
 site_name: SV-MX
 site_author: Ciro Bermudez and Luis Namigtle
-site_description: UVM documentation
+site_description: >-
+  SystemVerilogMX is a comprehensive guide to SystemVerilog and UVM, providing
+  templates, coding guidelines, and best practices for efficient verification.
 
 # Copyright
 copyright: >-
-  Copyright &copy; 2024 SystemVerilogMX
+  Copyright &copy; 2025 SystemVerilogMX
+
+# Repository
+repo_name: systemverilogmx
+repo_url: https://github.com/cirofabianbermudez/systemverilogmx
 
 # Configuration
 theme:
@@ -47,8 +53,8 @@ theme:
 # Plugins
 plugins:
   - search
-  - glightbox
-  - mkdocs-pdf
+ # - glightbox
+ # - mkdocs-pdf
 
 # Additional configuration
 extra:
@@ -97,12 +103,11 @@ nav:
     - index.md
   - SV:
     - sv/index.md
-    - Interface:
-      - sv/Introduction.md
-      - sv/interfaces/Data-Types.md
-      - sv/interfaces/SystemVerilog-Threads.md
-      - sv/interfaces/interfaces.md
-      - sv/interfaces/clocking-blocks.md
+    - Basics:
+      - sv/data-types.md
+      - sv/clocking-blocks.md
+      - sv/interfaces.md
+      - sv/threads.md
   - UVM:
     - uvm/index.md
     - Guidelines:
